@@ -18,20 +18,9 @@ sap.ui.define([
 		},
 
 		onTableSortPress: function (oEvent) {
-			let oView = this.getView();
-			
-			if (!this.byId("dialog_tablesettings")) {
-				Fragment.load({
-					id: oView.getId(),
-					name: "at.clouddna.training.FioriDeepDive.view.TableSettingsDialog",
-					controller: this
-				}).then(function (oDialog) {
-					oView.addDependent(oDialog);
-					oDialog.open();
-				});
-			} else {
-				this.byId("dialog_tablesettings").open();
-			}
+			this._oDialog = sap.ui.xmlfragment("at.clouddna.training.FioriDeepDive.view.TableSettingsDialog", this);
+			this._oDialog.setModel(this.getModel("i18n"), "i18n");
+			this._oDialog.open();
 		},
 
 		onSortDialogConfirm: function (oEvent) {
@@ -59,13 +48,13 @@ sap.ui.define([
 			for (let h = 0; h < aEnteredFilters.length; h++) {
 				if (aEnteredFilters[h].hasOwnProperty("_lastValue")) {
 					if (aEnteredFilters[h]._lastValue !== "") {
-						aFilters.push(new Filter(aColumnNames[h], FilterOperator.Contains, 
-										aEnteredFilters[h]._lastValue));
+						aFilters.push(new Filter(aColumnNames[h], FilterOperator.Contains,
+							aEnteredFilters[h]._lastValue));
 					}
 				} else {
 					if (aEnteredFilters[h].getProperty("selectedKey") !== "") {
-						aFilters.push(new Filter(aColumnNames[h], FilterOperator.Contains, 
-										aEnteredFilters[h].getProperty("selectedKey")));
+						aFilters.push(new Filter(aColumnNames[h], FilterOperator.Contains,
+							aEnteredFilters[h].getProperty("selectedKey")));
 					}
 				}
 			}
