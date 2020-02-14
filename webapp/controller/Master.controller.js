@@ -10,7 +10,11 @@ sap.ui.define([
 	return BaseController.extend("at.clouddna.training.FioriDeepDive.controller.Master", {
 
 		onInit: function () {
+<<<<<<< HEAD
 			//Hier kommt was anderes hin
+=======
+			//Testkommentar2 - das ist richtig!
+>>>>>>> refs/heads/master
 			this.getRouter().getRoute("Master").attachPatternMatched(this._onPatternMatched, this);
 		},
 
